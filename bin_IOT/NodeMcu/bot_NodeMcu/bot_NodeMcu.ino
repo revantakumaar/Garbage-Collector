@@ -99,6 +99,7 @@ void parse_response()
   {
     location[i] = response.substring(limits[i], limits[i+1] - 1);
    Serial.print(location[i] + " ");
+   bot_location = location[i].toInt();
   //Serial.print(location[i]);
     
   }

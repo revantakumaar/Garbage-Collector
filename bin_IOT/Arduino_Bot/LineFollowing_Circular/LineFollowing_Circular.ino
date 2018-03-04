@@ -1,17 +1,25 @@
+#include <Servo.h>
+
 #define l1 5
 #define l2 6
 
-#define r1 9
-#define r2 10
-
-#define max_speed 150
+#define r1 3
+#define r2 4
+#define max_speed 200
 #define turn_delay 650
+
+Servo myservo1;
+Servo myservo2;
+int pos = 0;    
+
+
 
 int total_jun = 4;
 int present_junction = 0, dest_jun = 1;
 int base_speed =  100;
 int align_speed = 100;
-int turn_speed = 200;
+int turn_speed = 100;
+
 
 boolean calib = 0;
 uint16_t sensor[5] = {0}, min_reading = 1023, max_reading = 0, threshold = 750, data = 0;
@@ -35,6 +43,9 @@ int left_speed = 0, right_speed = 0;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
+
+    myservo1.attach(9); 
+    myservo2.attach(10);
 
   pinMode(l1, OUTPUT);
   pinMode(l2, OUTPUT);
@@ -70,6 +81,8 @@ void loop() {
     if (dest_jun == present_junction)
     {
       brake();
+      if(present_junction!=1)
+          gripper();
       while (1)
       {
         Serial.print(present_junction);
@@ -268,3 +281,61 @@ void motors(int left, int right)
   }
 }
 
+void gripper()
+{
+  // moveup();
+  delay(1000);
+  ungrip();
+  delay(1000);
+   movedown();
+  delay(1000);
+  grip();
+  delay(1000);
+  moveup();
+  delay(5000);
+    movedown();
+  delay(1000);
+  ungrip();
+  delay(1000);
+   moveup();
+  delay(1000);
+  grip();
+  delay(1000);
+  
+  
+  
+}
+void ungrip()
+{
+  for (pos = 180; pos >= 0; pos -= 1)
+  { 
+    myservo1.write(pos);
+    delay(10);                     
+  }
+  
+}
+void grip()
+{
+  for (pos = 0; pos <= 140; pos += 1)
+  { 
+    myservo1.write(pos);
+    delay(10); 
+    }
+}
+void movedown()
+{
+  for (pos = 0; pos <= 140; pos += 1) 
+  { 
+    myservo2.write(pos); 
+    delay(10); 
+     }
+    
+}
+void moveup()
+{                                
+  for (pos = 180; pos >= 0; pos -= 1)
+  { 
+    myservo2.write(pos);    
+    delay(10);           
+}
+}

@@ -19,7 +19,7 @@ unsigned long update_db_interval = 1000;
 //database update interval - 1 second
 
 uint8_t bin_ID = 1;//ID of bin
-uint8_t bin_status = 0;
+uint8_t bin_status = 1;
 uint8_t bin_location = 1;
 uint8_t bin_level = 29;
 
@@ -50,29 +50,7 @@ void setup() {
 }
 
 void loop() {
-digitalWrite(trigPin, LOW);
-delayMicroseconds(2);
 
-// Sets the trigPin on HIGH state for 10 micro seconds
-digitalWrite(trigPin, HIGH);
-delayMicroseconds(10);
-digitalWrite(trigPin, LOW);
-
-// Reads the echoPin, returns the sound wave travel time in microseconds
-duration = pulseIn(echoPin, HIGH);
-
-// Calculating the distance
-distance= duration*0.034/2;
-// Prints the distance on the Serial Monitor
-Serial.print("Distance: ");
-Serial.print(distance);
-//bin_level=distance;
-
-//Calculating level of dustbin
-bin_level=bin_height-distance;
-Serial.print("  bin level: ");
-Serial.println(bin_level);
-delay(2000);
   bin_cal();
   present_ms = millis();
 
@@ -139,7 +117,29 @@ void parse_response()
 
 void bin_cal()
 {
+digitalWrite(trigPin, LOW);
+delayMicroseconds(2);
 
+// Sets the trigPin on HIGH state for 10 micro seconds
+digitalWrite(trigPin, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigPin, LOW);
+
+// Reads the echoPin, returns the sound wave travel time in microseconds
+duration = pulseIn(echoPin, HIGH);
+
+// Calculating the distance
+distance= duration*0.034/2;
+// Prints the distance on the Serial Monitor
+Serial.print("Distance: ");
+Serial.print(distance);
+//bin_level=distance;
+
+//Calculating level of dustbin
+bin_level=bin_height-distance;
+Serial.print("  bin level: ");
+Serial.println(bin_level);
+delay(2000);
 
 
 }
