@@ -9,6 +9,7 @@ const int echoPin = 0;  //D3
 // defines variables
 long duration;
 int distance;
+int flag=0;
 uint8_t bin_height = 30;
 
 //Enter your WiFi Credentials
@@ -19,7 +20,7 @@ unsigned long update_db_interval = 1000;
 //database update interval - 1 second
 
 uint8_t bin_ID = 1;//ID of bin
-uint8_t bin_status = 1;
+uint8_t bin_status = 0;
 uint8_t bin_location = 1;
 uint8_t bin_level = 29;
 
@@ -28,7 +29,7 @@ uint8_t bin_level = 29;
 
 unsigned long present_ms = 0, last_ms = 0, update_db, time_ms = 0;
 
-String server = "http://192.168.43.195/"; //Ip address of server
+String server = "http://192.168.43.254/"; //Ip address of server
 int port = 80; //default http port
 String response;
 String ard_data;
@@ -139,6 +140,17 @@ Serial.print(distance);
 bin_level=bin_height-distance;
 Serial.print("  bin level: ");
 Serial.println(bin_level);
+
+if(bin_level>20){
+  flag++;
+}
+if(flag>=2){
+  bin_status=1;
+  flag=0;
+}
+else{
+  bin_status=0;
+  }
 delay(2000);
 
 
