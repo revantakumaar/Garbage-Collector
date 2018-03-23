@@ -20,7 +20,9 @@ if(isset($_GET['bin_id']) && isset($_GET['bin_status']) && isset($_GET['bin_leve
   }
 
   $sql = "UPDATE bin SET bin_id = '$bin_id',bin_status = '$bin_status',bin_level = '$bin_level' WHERE bin_id = '$bin_id'";
+  $sql1 = "INSERT INTO bin_t (bin_id,bin_status,bin_level,bin_location,bin_time) VALUES('$bin_id','$bin_status','$bin_level','$bin_location',CURRENT_TIMESTAMP())";
   $result = mysqli_query($connection,$sql);
+  $result1 = mysqli_query($connection,$sql1);
   if($result)
   {
    // echo "successfully updated";

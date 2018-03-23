@@ -5,8 +5,8 @@
 
 #define r1 3
 #define r2 4
-#define max_speed 200
-#define turn_delay 650
+#define max_speed 150
+#define turn_delay 550
 
 Servo myservo1;
 Servo myservo2;
@@ -16,9 +16,9 @@ int pos = 0;
 
 int total_jun = 4;
 int present_junction = 0, dest_jun = 1;
-int base_speed =  100;
-int align_speed = 100;
-int turn_speed = 100;
+int base_speed =  80;
+int align_speed = 80;
+int turn_speed = 90;
 
 
 boolean calib = 0;
@@ -44,8 +44,8 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
 
-    myservo1.attach(9); 
-    myservo2.attach(10);
+    myservo1.attach(10); 
+  myservo2.attach(9);
 
   pinMode(l1, OUTPUT);
   pinMode(l2, OUTPUT);
@@ -283,51 +283,43 @@ void motors(int left, int right)
 
 void gripper()
 {
-  // moveup();
-  delay(1000);
   ungrip();
   delay(1000);
-   movedown();
+  movedown();
   delay(1000);
   grip();
   delay(1000);
   moveup();
-  delay(5000);
-    movedown();
+  delay(2000); 
+  movedown();
   delay(1000);
   ungrip();
   delay(1000);
-   moveup();
+  moveup();
   delay(1000);
-  grip();
-  delay(1000);
-  
-  
-  
 }
 void ungrip()
 {
-  for (pos = 180; pos >= 0; pos -= 1)
+  for (pos = 180; pos >= 10; pos -= 1)
   { 
-    myservo1.write(pos);
-    delay(10);                     
+    myservo2.write(pos);                    
   }
   
 }
 void grip()
 {
-  for (pos = 0; pos <= 140; pos += 1)
+  for (pos = 0; pos <= 180; pos += 1)
   { 
-    myservo1.write(pos);
-    delay(10); 
+    myservo2.write(pos);
+    delay(20);
     }
 }
 void movedown()
 {
-  for (pos = 0; pos <= 140; pos += 1) 
+  for (pos = 0; pos <= 130; pos += 1) 
   { 
-    myservo2.write(pos); 
-    delay(10); 
+    myservo1.write(pos); 
+    delay(10);
      }
     
 }
@@ -335,7 +327,6 @@ void moveup()
 {                                
   for (pos = 180; pos >= 0; pos -= 1)
   { 
-    myservo2.write(pos);    
-    delay(10);           
+    myservo1.write(pos);              
 }
 }

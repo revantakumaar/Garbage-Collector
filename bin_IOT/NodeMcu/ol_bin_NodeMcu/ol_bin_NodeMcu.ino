@@ -21,15 +21,15 @@ unsigned long update_db_interval = 1000;
 
 uint8_t bin_ID = 2;//ID of bin
 uint8_t bin_status = 0;
-uint8_t bin_level = 29;
 uint8_t bin_location = 2;
+uint8_t bin_level = 29;
 
 
 //session variables
 
 unsigned long present_ms = 0, last_ms = 0, update_db, time_ms = 0;
 
-String server = "http://192.168.43.195/"; //Ip address of server
+String server = "http://iotgarbagecollector.000webhostapp.com/"; //Ip address of server
 int port = 80; //default http port
 String response;
 String ard_data;
@@ -141,7 +141,7 @@ bin_level=bin_height-distance;
 Serial.print("  bin level: ");
 Serial.println(bin_level);
 
-if(bin_level>8){
+if(bin_level>10){
   flag++;
 }
 if(flag>=2){

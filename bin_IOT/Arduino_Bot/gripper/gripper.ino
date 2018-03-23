@@ -1,86 +1,72 @@
 
 #include <Servo.h>
-void grip(void);
-void ungrip(void);
-void moveup(void);
+void grip(void);void moveup(void);
 void movedown(void);
-
 void gripper();
 Servo myservo1;
 Servo myservo2;
-int pos = 0,f=0;    
+int pos = 0;    
 void setup() {
-  myservo1.attach(9); 
-  myservo2.attach(10);
+  myservo1.attach(10); 
+  myservo2.attach(9);
+  gripper();
 }
 
 void loop()
 {
- 
-  gripper();
 
- 
 }
 void gripper()
 {
- 
   ungrip();
   delay(1000);
-   movedown();
+  movedown();
   delay(1000);
   grip();
   delay(1000);
   moveup();
-  delay(5000);
-    movedown();
+  delay(2000); 
+  movedown();
   delay(1000);
   ungrip();
   delay(1000);
-   moveup();
+  moveup();
   delay(1000);
-  grip();
-  delay(1000);
-  
-  
-  
 }
 void ungrip()
 {
-  for (pos = 180; pos >= 0; pos -= 1)
+  for (pos = 180; pos >= 10; pos -= 1)
   { 
-    myservo1.write(pos);
-                     
+    myservo2.write(pos);                    
   }
   
 }
 void grip()
 {
-  for (pos = 0; pos <= 100; pos += 1)
+  for (pos = 0; pos <= 180; pos += 1)
   { 
-    myservo1.write(pos);
-  
+    myservo2.write(pos);
+    delay(20);
     }
 }
-
+void movedown()
+{
+  for (pos = 0; pos <= 130; pos += 1) 
+  { 
+    myservo1.write(pos); 
+    delay(10);
+     }
     
-
+}
 void moveup()
 {                                
   for (pos = 180; pos >= 0; pos -= 1)
   { 
-    myservo2.write(pos);    
-        
+    myservo1.write(pos);              
 }
-}
-void movedown()
-{
-  for (pos = 0; pos <= 135; pos += 1) 
-  { 
-    myservo2.write(pos); 
-
-  }
 }
   
+
 
 
 

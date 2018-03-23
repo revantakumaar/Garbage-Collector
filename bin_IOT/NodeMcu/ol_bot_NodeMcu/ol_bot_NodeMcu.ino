@@ -17,7 +17,7 @@ uint8_t bot_level = 20;
 String location[10];
 unsigned long present_ms = 0, last_ms = 0, update_db, time_ms = 0;
 
-String server = "http://192.168.43.195/";
+String server = "http://iotgarbagecollector.000webhostapp.com/";
 int port = 80; //default port
 String response;
 String ard_data;
